@@ -3,22 +3,23 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <meta name="viewport" content="width=device-width;">
+    <title>Multiply and Divide</title>
 </head>
 <body onload="makeProblem();">
     <div>
-        <div style="display: inline-block;">
-            <span id="problem"></span><span>&nbsp;=&nbsp;</span><input id="result" style="width: 100px;" type="text"/>
-            <input type="button" value="Check" onclick="checkAnswer();"/>
+        <div style="white-space: nowrap;">
+            <span id="problem"></span><span>&nbsp;=&nbsp;</span><input id="result" style="width: 100px;" type="text" />
+            <input type="button" value="Check" style="margin: 5px;" onclick="checkAnswer();" />
         </div>
-        
-        <div id="confirmation" style="margin-top: 10px; margin-bottom: 10px; visibility: hidden;"></div>
+
+        <div id="confirmation" style="margin-top: 10px; margin-bottom: 10px; visibility: hidden; white-space: nowrap;"></div>
     </div>
 
     <div>
         <input type="button" value="New Problem" onclick="makeProblem();" />&nbsp;<input type="button" value="Show Answer" onclick="showAnswer();" />
     </div>
-    
+
     <script language="javascript">
         var MAX_PRECISION = 2;
         var NUMBERS = 5;
@@ -55,7 +56,7 @@
             if (_problem) {
                 var resultElement = document.getElementById('result');
                 resultElement.value = Math.floor(_problem.result);
-            }        
+            }
         };
 
         function checkAnswer() {
