@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body onload="makeProblem();">
+    <div>
+        <div style="display: inline-block;">
+            <span id="problem"></span><span>&nbsp;=&nbsp;</span><input id="result" style="width: 100px;" type="text"/>
+            <input type="button" value="Check" onclick="checkAnswer();"/>
+        </div>
+        
+        <div id="confirmation" style="margin-top: 10px; margin-bottom: 10px; visibility: hidden;"></div>
+    </div>
+
+    <div>
+        <input type="button" value="New Problem" onclick="makeProblem();" />&nbsp;<input type="button" value="Show Answer" onclick="showAnswer();" />
+    </div>
+    
+    <script language="javascript">
+        var MAX_PRECISION = 2;
+        var NUMBERS = 5;
+        var EPSILON = 1e-10;
+
+        var Operation = {
+            Multiply: 1,
+            Divide: 2
+        };
+
+        var _problem;
+
+        function makeProblem() {
+            var problem;
+            do {
+                problem = attemptProblem();
+            } while (!ValidateResult(problem));
+
+            var regEx = /\//gi;
+            problem.text = problem.text.replace(regEx, '&divide;').replace(' ', '&nbsp;');
+            var problemElement = document.getElementById('problem');
+            problemElement.innerHTML = problem.text;
+
+            var resultElement = document.getElementById('result');
+            resultElement.value = '';
+
+            var confirmationElement = document.getElementById('confirmation');
+            confirmationElement.style.visibility = 'hidden';
+
+            _problem = problem;
+        };
+
+        function showAnswer() {
+            if (_problem) {
+                var resultElement = document.getElementById('result');
+                resultElement.value = Math.floor(_problem.result);
+            }        
+        };
+
+        function checkAnswer() {
+            var resultElement = document.getElementById('result');
+            if (!_problem || !resultElement.value)
+                return;
+
+            var confirmationElement = document.getElementById('confirmation');
+
+            if (Math.abs(_problem.result - parseInt(resultElement.value, 10)) < EPSILON) {
+                confirmationElement.innerHTML = "Correct!";
+                confirmationElement.style.color = "green";
+            }
+            else {
+                confirmationElement.innerHTML = "Wrong, try again.";
+                confirmationElement.style.color = "black";
+            }
+
+            confirmationElement.style.visibility = 'visible';
+        };
+
+        function getNumber(maxDigits) {
+            var number = 0;
+            while (number < 2) {
+                number = Math.floor(Math.random() * Math.pow(10, maxDigits));
+            }
+            return number;
+        };
+
+        function getOperation() {
+            if (Math.random() < 0.7)
+                return Operation.Multiply;
+            return Operation.Divide;
+        };
+
+        function attemptProblem() {
+            var problem = {
+                text: '',
+                result: 1
+            };
+
+            var MaxNumbers = NUMBERS;
+            for (var iNumber = 0; iNumber < MaxNumbers; ++iNumber) {
+                var number = getNumber(2);
+
+                var operation = Operation.Multiply; // default for first operation
+                if (iNumber > 0) {
+                    if (iNumber === (MaxNumbers - 1) && problem.text.indexOf('/') < 0) {
+                        // include at least one division
+                        operation = Operation.Divide;
+                    }
+                    else {
+                        operation = getOperation();
+                    }
+                }
+
+
+                switch (operation) {
+                    case Operation.Multiply:
+                        problem.result *= number;
+                        problem.text = problem.text + " x " + number;
+                        break;
+                    case Operation.Divide:
+                        problem.result /= number;
+                        problem.text = problem.text + " / " + number;
+                        break;
+                    default:
+                        alert("Wrong operation");
+                }
+            }
+
+            problem.text = problem.text.substr(3);
+            return problem;
+        };
+
+        function ValidateResult(problem) {
+            var intResult = Math.floor(problem.result);
+
+            if (problem.result - intResult > EPSILON)
+                return false;
+
+            return Math.abs(intResult - intResult.toPrecision(MAX_PRECISION)) < EPSILON;
+        };
+
+
+    </script>
+</body>
+</html>
