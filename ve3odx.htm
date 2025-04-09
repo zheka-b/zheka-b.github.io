@@ -7,12 +7,24 @@
     <meta name="viewport" content="width=device-width;">
     <meta http-equiv="refresh" content="30">
     <title>VE3ODX SPOTS</title>
+    <style>
+        #content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #time {
+            align-content: center;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body onload="printTime();">
-    <iframe src="https://widget.dxwatch.com/widget/widget1.php?s=Zmw9MSZwPTEmbD0xJmNhbGxzaWduPVZFM09EWCZjYWxsdHlwZT1keCZmPTAmdz0zNTAmcj0xNQ=="
-        width="350" height="525" frameborder="0" scrolling="no"> </iframe>
-    <div id="time" style="text-align: center;align-content: center;" ></div>
+    <div id="content">
+        <iframe src="https://widget.dxwatch.com/widget/widget1.php?s=Zmw9MSZjYWxsc2lnbj1WRTNPRFgmY2FsbHR5cGU9ZHgmZj0wJnc9MzUwJnI9MTU=" width="350" height="485" frameborder="0" scrolling="no"> </iframe>
+    </div>
+    <div id="time" ></div>
     <script language="javascript">
         function printTime() {
             var element = document.getElementById('time');
