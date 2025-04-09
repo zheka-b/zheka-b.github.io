@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width;">
+    <meta http-equiv="refresh" content="30">
+    <title>VE3ODX SPOTS</title>
+</head>
+
+<body onload="printTime();">
+    <iframe src="https://widget.dxwatch.com/widget/widget1.php?s=Zmw9MSZwPTEmbD0xJmNhbGxzaWduPVZFM09EWCZjYWxsdHlwZT1keCZmPTAmdz0zNTAmcj0xNQ=="
+        width="350" height="525" frameborder="0" scrolling="no"> </iframe>
+    <div id="time" style="text-align: center;align-content: center;" ></div>
+    <script language="javascript">
+        function printTime() {
+            var element = document.getElementById('time');
+            var date = new Date();
+            element.innerHTML = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+        }
+
+    </script>
+</body>
+
+</html>
